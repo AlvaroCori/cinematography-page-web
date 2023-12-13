@@ -30,14 +30,13 @@ export class MoviesService{
         fetch(this.routes["movies"]+idMovie, this.getHeaders("GET", "application/json"))
         .then((res : any) => res.json())
         .then((json : any) => {
-            console.log(json);
             if (json["id"]){
-                console.log(new MovieModel(json["id"], json["title"],json["vote_average"], json["vote_count"], json["genres"]));
-                return new MovieModel(json["id"], json["title"],json["vote_average"], json["vote_count"], json["genres"])
+                //.log(new MovieModel(json["id"], json["title"],json["vote_average"], json["vote_count"], json["genres"]));
+                return new Promise(()=>{ return new MovieModel(json["id"], json["title"],json["vote_average"], json["vote_count"], json["genres"])});
             }
         })
         .catch((err : any) => console.error('error:' + err));
-        return null;
+        return new Promise(()=>{ return null});
     }
 
 }

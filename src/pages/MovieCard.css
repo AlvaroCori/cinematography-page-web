@@ -1,0 +1,7 @@
+.MovieCard{
+    width: 32%;
+    display: flex;
+    flex-wrap: wrap;
+    align-content: center;
+    justify-content: space-between;
+}

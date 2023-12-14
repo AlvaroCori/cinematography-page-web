@@ -6,43 +6,45 @@ import CardContent from '@mui/material/CardContent';
 import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 import "./MovieCard.css";
-const bull = (
-  <Box
-    component="span"
-    sx={{ display: 'inline-block', mx: '2px', transform: 'scale(0.8)' }}
-  >
-    •
-  </Box>
-);
+import { MovieModel } from '../models/MovieModel';
+import { CardMedia } from '@mui/material';
 
-const card = (
-  <React.Fragment>
-    <CardContent>
-      <Typography color="text.secondary" gutterBottom>
-        title
-      </Typography>
-      <Typography variant="h5" component="div">
-        second title
-      </Typography>
-      <Typography color="text.secondary">
-        adjective
-      </Typography>
-      <Typography variant="body2">
-        Description.
-        <br />
-        {'"a benevolent smile"'}
-      </Typography>
-    </CardContent>
-    <CardActions>
-      <Button size="small">Learn More</Button>
-    </CardActions>
-  </React.Fragment>
-);
 
-export default function MovieCard() {
+export default function MovieCard(prop: any) {
+  let movie : MovieModel = prop.movie;
   return (
-    <Box>
-      <Card variant="outlined">{card}</Card>
+    <Box className='MovieCard'>
+      <Card variant="outlined">
+        <React.Fragment>
+          <CardContent>
+            <Typography color="text.secondary" gutterBottom>
+              {movie.releaseDate?.getFullYear()}
+            </Typography>
+            <Typography variant="h5" component="div">
+              {movie.title}
+            </Typography>
+            <Typography color="text.secondary">
+              {movie.voteAverage} - {movie.voteCount}
+            </Typography>
+            <Typography variant="body2">
+              {movie.overview}
+              <br />
+              {'"a benevolent smile"'}
+            </Typography>
+          </CardContent>
+          <CardActions>
+            <Button>Learn More</Button>
+          </CardActions>
+        </React.Fragment>
+      </Card>
     </Box>
   );
 }
+/*
+<CardMedia
+              component="img"
+              height="194"
+              image="/static/images/cards/paella.jpg"
+              alt="Paella dish"
+            />
+*/

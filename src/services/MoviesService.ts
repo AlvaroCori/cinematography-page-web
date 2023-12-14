@@ -7,7 +7,8 @@ export class MoviesService{
     token: String;
     constructor(token: String){
         this.routes = {
-            "movies": 'https://api.themoviedb.org/3/movie/',
+            "movies": "https://api.themoviedb.org/3/discover/movie/",
+            "movie": 'https://api.themoviedb.org/3/movie/'
         };
         this.token = token;
     }
@@ -21,13 +22,22 @@ export class MoviesService{
         };
     }
     getMovies(){
-        fetch(this.routes["movies"], this.getHeaders("GET", "application/json"))
+        return fetch(this.routes["movies"], this.getHeaders("GET", "application/json"))
         .then((res : any) => res.json())
-        .then((json : any) => console.log(json))
-        .catch((err : any) => console.error('error:' + err));
+        .then((json : any) => {
+            let movies: MovieModel[] = [];
+            for (let movie of json["results"]){
+                movies.push(new MovieModel(movie["id"], movie["title"],movie["vote_average"], movie["vote_count"], movie["genre_ids"], movie["overview"], movie["poster_path"], new Date(movie["release_date"])));
+            }
+            return movies;
+        })
+        .catch((err : any) => {
+            console.error('error:' + err)
+            return [];
+        });
     }
     getMovie(idMovie: String){
-        fetch(this.routes["movies"]+idMovie, this.getHeaders("GET", "application/json"))
+        fetch(this.routes["movie"]+idMovie, this.getHeaders("GET", "application/json"))
         .then((res : any) => res.json())
         .then((json : any) => {
             if (json["id"]){

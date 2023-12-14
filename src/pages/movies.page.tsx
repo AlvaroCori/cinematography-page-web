@@ -4,6 +4,7 @@ import { MoviesService } from '../services/MoviesService';
 import MovieCard from './MovieCard';
 
 import "./Movies.Page.css";
+import { MovieModel } from '../models/MovieModel';
 
 const fetch = require("node-fetch");
 function MoviesPage() {
@@ -24,12 +25,18 @@ function MoviesPage() {
     .then((res : any) => res.json())
     .then((json : any) => console.log(json))
     .catch((err : any) => console.error('error:' + err));
-  for (let i = 0; i<20;i++){
-    service.getMovie(String(i));
-  }
   useEffect(() => {
     if (!isLoaded){
       isLoaded = true;
+      service.getMovies().then((movies : MovieModel[])=>{
+        let cs:any[] = [];
+        setCards(prevItems => [...prevItems, cards= []]);
+        for (let movie of movies){
+          cs.push(<MovieCard movie={movie}></MovieCard>);
+        }
+        setCards(prevItems => [...prevItems,cards=cs]);
+      });
+      /*
       setCards(prevItems => [...prevItems, cards= []]);
       let cs:any[] = [];
       for (let i = 0; i<20;i++){
@@ -43,6 +50,7 @@ function MoviesPage() {
         console.log("rr");
       }
       setCards(prevItems => [...prevItems,cards=cs]);
+      */
     }
   }, []);
   return (

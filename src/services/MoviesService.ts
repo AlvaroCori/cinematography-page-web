@@ -21,8 +21,12 @@ export class MoviesService{
             }
         };
     }
-    getMovies(){
-        return fetch(this.routes["movies"], this.getHeaders("GET", "application/json"))
+    getMovies(newUrl: String = ""){
+        let url = this.routes["movies"];
+        if (newUrl != ""){
+            url = newUrl;
+        }
+        return fetch(url, this.getHeaders("GET", "application/json"))
         .then((res : any) => res.json())
         .then((json : any) => {
             let movies: MovieModel[] = [];
@@ -48,5 +52,7 @@ export class MoviesService{
         .catch((err : any) => console.error('error:' + err));
         return new Promise(()=>{ return null});
     }
-
+    getUrl(){
+        return this.routes["movies"];
+    }
 }

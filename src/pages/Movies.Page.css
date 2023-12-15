@@ -1,7 +1,25 @@
-.container-movies{
+.movies-container{
     display: flex;
     flex-wrap: wrap;
     align-content: center;
     justify-content: space-between;
     margin: 10px;
+}
+.filters{
+    display: flex;
+    flex-wrap: wrap;
+    align-content: center;
+    justify-content: space-around;
+    margin: 40px;
+}
+.filters>div{
+    font-size: 26px;
+}
+.filters>div>label{
+    margin-right: 20px;
+}
+.filters>div>select{
+    font-size: 16px;
+    padding: 10px;
+    text-align: center;
 }
